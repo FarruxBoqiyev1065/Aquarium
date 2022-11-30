@@ -1,21 +1,34 @@
 package org.example;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+public class Fish extends Thread {
 
-public class Fish {
-    private int N;
-    private int M;
     private int age;
-    private Gender gender;
-    private int livingTime;
+    private final Gender gender;
+    private final int livingTime;
 
     public Fish() {
-        this.N = RandomGenerator.rundomNumberOfMale();
-        this.M = RandomGenerator.randomNumberOfFemale();
-        this.age = RandomGenerator.randomAge();
+        this.age = 0;
         this.gender = RandomGenerator.randomGenderGen();
-        this.livingTime = RandomGenerator.randomTime();
+        this.livingTime = RandomGenerator.randomNumber(50);
+    }
+
+
+    public Fish(Gender gender) {
+        this.age = 0;
+        this.gender = gender;
+        this.livingTime = RandomGenerator.randomNumber(50);
+    }
+
+    @Override
+    public void run() {
+        while (livingTime >= age) {
+            try {
+                Thread.sleep(1_000);
+            } catch (InterruptedException e) {
+                break; // ignore
+            }
+            age++;
+        }
     }
 
     public int getAge() {
@@ -30,19 +43,7 @@ public class Fish {
         return gender;
     }
 
-    public int getNumberOfMale() {
-        return N;
-    }
-
-    public int getNumberOfFemale() {
-        return M;
-    }
-
-    public int getNumberOfMaleFish() {
-        return N;
-    }
-
     public enum Gender {
-        MALE, FEMALE;
+        MALE, FEMALE
     }
 }
