@@ -7,10 +7,11 @@ public class RandomGenerator {
 
 
     public static Integer randomNumber(int max) {
-        return randomNumber(1, max);
+        return randomNumber(0, max);
     }
 
     public static Integer randomNumber(int min, int max) {
+        if(max <= min) return min;
         return random.nextInt(min, max);
     }
 
